@@ -9,8 +9,8 @@ import (
 )
 
 var (
-	// キヨのチャンネル
-	ChannelIds = []string{"UCMJiPpN_09F0aWpQrgbc_qg"}
+	// チャンネルIDを指定
+	ChannelIds = []string{""}
 )
 
 var listOptions = []string{"snippet", "contentDetails", "statistics"}
