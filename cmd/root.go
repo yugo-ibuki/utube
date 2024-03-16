@@ -2,7 +2,11 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/joho/godotenv"
+	"log"
 	"os"
+	"utube/member"
+	"utube/youtube"
 
 	"github.com/spf13/cobra"
 )
@@ -13,8 +17,33 @@ var rootCmd = &cobra.Command{
 	Short: "This is a simple CLI tool to handle youtube API commands.",
 	Long:  "This is a simple CLI tool to handle youtube API commands.",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(args)
-		fmt.Println("Hello, World!")
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatalf("Error loading .env file")
+		}
+
+		y := youtube.New()
+
+		chInfo := make([]member.Member, len(youtube.ChannelIds))
+
+		for i, chId := range youtube.ChannelIds {
+			response, err := y.GetChCall(chId)
+			if err != nil {
+				log.Fatalf("Error making API call: %v", err)
+			}
+			chInfo[i] = member.Member{
+				Id:           response.Items[i].Id,
+				Title:        response.Items[i].Snippet.Title,
+				ChannelId:    response.Items[i].Id,
+				ThumbnailUrl: response.Items[i].Snippet.Thumbnails.Default.Url,
+				Views:        response.Items[i].Statistics.ViewCount,
+			}
+		}
+
+		for _, c := range chInfo {
+			fmt.Printf("This channel's ID is %s. Its title is '%s', and it has %v views.\n",
+				c.Id, c.Title, c.Views)
+		}
 	},
 }
 
@@ -27,5 +56,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// フラグ
+	//rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
