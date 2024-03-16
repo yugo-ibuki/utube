@@ -26,7 +26,7 @@ var rootCmd = &cobra.Command{
 		chInfo := make([]channel.Channel, len(youtube.ChannelIds))
 
 		for i, chId := range youtube.ChannelIds {
-			response, err := y.GetChCall(chId)
+			response, err := y.DoChCall(chId)
 			if err != nil {
 				log.Fatalf("Error making API call: %v", err)
 			}

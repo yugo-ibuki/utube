@@ -32,7 +32,7 @@ func New() *Youtube {
 	}
 }
 
-func (y *Youtube) GetChCall(chId string) (*youtube.ChannelListResponse, error) {
+func (y *Youtube) DoChCall(chId string) (*youtube.ChannelListResponse, error) {
 	call := y.Service.Channels.List(listOptions).Id(chId)
 	response, err := call.Do()
 	if err != nil {
