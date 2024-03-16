@@ -1,4 +1,4 @@
-package member
+package channel
 
 type Member struct {
 	Id           string

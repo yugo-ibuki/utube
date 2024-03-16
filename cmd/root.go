@@ -5,7 +5,7 @@ import (
 	"github.com/joho/godotenv"
 	"log"
 	"os"
-	"utube/member"
+	"utube/channel"
 	"utube/youtube"
 
 	"github.com/spf13/cobra"
@@ -24,14 +24,14 @@ var rootCmd = &cobra.Command{
 
 		y := youtube.New()
 
-		chInfo := make([]member.Member, len(youtube.ChannelIds))
+		chInfo := make([]channel.Member, len(youtube.ChannelIds))
 
 		for i, chId := range youtube.ChannelIds {
 			response, err := y.GetChCall(chId)
 			if err != nil {
 				log.Fatalf("Error making API call: %v", err)
 			}
-			chInfo[i] = member.Member{
+			chInfo[i] = channel.Member{
 				Id:           response.Items[i].Id,
 				Title:        response.Items[i].Snippet.Title,
 				ChannelId:    response.Items[i].Id,
