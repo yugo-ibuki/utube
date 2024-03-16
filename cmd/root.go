@@ -30,13 +30,7 @@ var rootCmd = &cobra.Command{
 			if err != nil {
 				log.Fatalf("Error making API call: %v", err)
 			}
-			chInfo[i] = channel.Channel{
-				Id:           response.Items[i].Id,
-				Title:        response.Items[i].Snippet.Title,
-				ChannelId:    response.Items[i].Id,
-				ThumbnailUrl: response.Items[i].Snippet.Thumbnails.Default.Url,
-				Views:        response.Items[i].Statistics.ViewCount,
-			}
+			chInfo[i] = channel.Format(i, response)
 		}
 
 		for _, c := range chInfo {
