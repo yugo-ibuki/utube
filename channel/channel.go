@@ -1,6 +1,6 @@
 package channel
 
-type Member struct {
+type Channel struct {
 	Id           string
 	Title        string
 	ChannelId    string

@@ -1,4 +1,4 @@
-module utube
+module github.com/yugo-ibuki/utube
 
 go 1.21.0
 

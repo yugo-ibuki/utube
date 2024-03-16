@@ -1,6 +1,6 @@
 package main
 
-import "utube/cmd"
+import "github.com/yugo-ibuki/utube/cmd"
 
 func main() {
 	cmd.Execute()
